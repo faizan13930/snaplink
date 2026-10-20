@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnapLink - Fast URL Shortener, Live Updates & Ad Hub</title>
+  <meta name="description" content="SnapLink Professional URL Shortener, API Gateway, Live Score & News Portal" />
+
+  <!-- ================================================================= -->
+  <!-- AD SLOT 1: POPUNDER AD SCRIPT (Sirf Kisi 1 Network ka lagayein)   -->
+  <!-- ================================================================= -->
+  <!-- MITAYEIN_1_POPUNDER_AD_YAHAN_LAGAYEIN -->
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --accent: #10b981;
+      --accent-dark: #059669;
+      --warning: #f59e0b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+    .navbar {
+      background: linear-gradient(135deg, #0f172a 0%, #312e81 50%, #4f46e5 100%);
+      color: #ffffff;
+      padding: 18px 16px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .brand-badge {
+      background: #10b981;
+      color: #ffffff;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .navbar p {
+      font-size: 13px;
+      opacity: 0.88;
+      margin-top: 4px;
+    }
+    .container {
+      max-width: 640px;
+      margin: 18px auto;
+      padding: 0 14px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+      border: 1px solid var(--border);
+    }
+    .ad-slot {
+      background: #f1f5f9;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      margin-bottom: 14px;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      overflow: hidden;
+      gap: 8px;
+    }
+    .ad-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .steps-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 6px;
+    }
+    .step-pill {
+      flex: 1;
+      text-align: center;
+      padding: 7px 6px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #e2e8f0;
+      color: #64748b;
+    }
+    .step-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+    }
+    .step-pill.done {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    input[type="url"], input[type="text"], textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+    input:focus, textarea:focus {
+      border-color: var(--primary);
+      background: #ffffff;
+    }
+    textarea {
+      font-family: monospace;
+      font-size: 12px;
+      resize: vertical;
+    }
+    .btn {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.15s, background 0.2s;
+    }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-success { background: var(--accent); }
+    .btn-success:hover { background: var(--accent-dark); }
+    .btn-warning { background: var(--warning); color: #ffffff; }
+    .result-box {
+      display: none;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .timer-box {
+      text-align: center;
+      padding: 10px 6px;
+    }
+    .timer-circle {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      border: 4px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 14px auto;
+      background: #eef2ff;
+    }
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .badge {
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+    .live-badge {
+      background: #fee2e2;
+      color: #dc2626;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: #f8fafc;
+    }
+    .item-info h4 { font-size: 14px; color: var(--text-main); }
+    .item-info p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .small-btn {
+      background: #0f172a;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+    .popup-box {
+      background: #ffffff;
+      width: 100%;
+      max-width: 370px;
+      border-radius: 16px;
+      padding: 18px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35);
+    }
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: #ef4444;
+      color: #ffffff;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .sticky-footer-ad {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #ffffff;
+      border-top: 1px solid #cbd5e1;
+      padding: 6px;
+      text-align: center;
+      z-index: 999;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    .hidden { display: none !important; }
+    .footer { text-align: center; font-size: 12px; color: var(--text-muted); padding: 18px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- ================= POP-UP MODAL AD (Sirf 1 Banner rakhein) ================= -->
+  <div class="popup-overlay hidden" id="popup-ad-modal">
+    <div class="popup-box">
+      <button class="popup-close" onclick="closePopupAd()">X</button>
+      <div class="ad-label">Sponsored Offer</div>
+      <div style="min-height:250px; display:flex; align-items:center; justify-content:center; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:10px; margin:8px 0 12px; padding:8px; overflow:hidden;">
+        <!-- AD SLOT 2: POP-UP 300x250 BANNER (Sirf 1 code lagayein) -->
+        <div id="slot-ad-popup">MITAYEIN_2_POPUP_300x250_AD_YAHAN_LAGAYEIN</div>
+      </div>
+      <a class="btn btn-warning" href="#" id="popup-direct-btn" target="_blank">Claim Special Bonus &rarr;</a>
+    </div>
+  </div>
+
+  <header class="navbar">
+    <div class="brand">
+      <span>&#9889; SnapLink</span>
+      <span class="brand-badge">MULTI-AD PRO</span>
+    </div>
+    <p>3-Step High Paying Link Shortener, API &amp; Multi-Network Hub</p>
+  </header>
+
+  <main class="container">
+
+    <!-- ================================================================= -->
+    <!-- AD SLOT 3A & 3B: TOP BANNERS (A-Ads + Adsterra alag-alag)         -->
+    <!-- ================================================================= -->
+    <div class="ad-slot">
+      <div class="ad-label">Top Sponsored Ads</div>
+      <div id="slot-ad-top-1">MITAYEIN_3A_AADS_TOP_BANNER_YAHAN_LAGAYEIN</div>
+      <div id="slot-ad-top-2">MITAYEIN_3B_ADSTERRA_TOP_BANNER_YAHAN_LAGAYEIN</div>
+    </div>
+
+    <!-- ================= 1. DASHBOARD / SHORTENER VIEW ================= -->
+    <section id="shortener-view">
+      <div class="card">
+        <h2 style="font-size:18px; margin-bottom:4px;">SnapLink 3-Page URL Shortener</h2>
+        <p style="font-size:13px; color:#64748b;">Koi bhi URL daalein aur 3-page verification wala high-earning short link banayein.</p>
+
+        <div class="input-group">
+          <input id="long-url" placeholder="https://bitcotasks.com/ ya koi bhi lamba URL daalein" type="url" />
+          <button class="btn" onclick="generateShortLink()">Create SnapLink &rarr;</button>
+        </div>
+
+        <div class="result-box" id="result-box">
+          <p style="font-size:13px; font-weight:700; margin-bottom:6px; color:#059669;">Aapka 3-Step SnapLink Taiyaar Hai:</p>
+          <div class="input-group">
+            <input id="short-url-output" readonly type="text" />
+            <button class="btn btn-success" id="copy-btn" onclick="copyLink()">Copy Short Link</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <span>SnapLink Developer API &amp; PTC Setup</span>
+          <span class="badge">Multi-Network Ready</span>
+        </div>
+
+        <p style="font-size:12px; color:#64748b; margin-bottom:4px;"><strong>1. Bitcotasks / PTC Surf Campaign Link:</strong></p>
+        <input id="ptc-campaign-link" readonly style="margin-bottom:12px;" type="text" />
+
+        <p style="font-size:12px; color:#64748b; margin-bottom:4px;"><strong>2. Direct Quick API Format:</strong></p>
+        <input id="quick-api-box" readonly style="margin-bottom:12px;" type="text" />
+
+        <p style="font-size:12px; color:#64748b; margin-bottom:4px;"><strong>3. Full Website Auto-Shortener Script:</strong></p>
+        <textarea id="api-script-box" readonly rows="4"></textarea>
+        <button class="btn" onclick="copyApiScript()" style="margin-top:8px; padding:11px; font-size:13px;">Copy Full Page Script</button>
+      </div>
+    </section>
+
+    <!-- ================= 2. VISITOR 3-STEP VERIFICATION VIEW ================= -->
+    <section class="card hidden" id="redirect-view">
+      <div class="steps-bar">
+        <div class="step-pill active" id="pill-step-1">Step 1</div>
+        <div class="step-pill" id="pill-step-2">Step 2</div>
+        <div class="step-pill" id="pill-step-3">Step 3 (Final)</div>
+      </div>
+
+      <div class="timer-box">
+        <h3 id="status-text" style="font-size:17px;">Step 1 of 3: Link Verify Ho Raha Hai...</h3>
+        <div class="timer-circle" id="countdown">10</div>
+        <p id="timer-subtext" style="font-size:13px; color:#64748b; margin-bottom:14px;">Kripya timer khatam hone ka intezaar karein, phir niche button dabayein.</p>
+        <button class="btn hidden" id="top-verify-btn" onclick="handleTopVerifyClick()">Verify Step &amp; Scroll Down &darr;</button>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- AD SLOT 4: MIDDLE NATIVE BANNER AD                                -->
+    <!-- ================================================================= -->
+    <div class="ad-slot">
+      <div class="ad-label">Sponsored Feed</div>
+      <div id="slot-ad-middle">MITAYEIN_4_MIDDLE_NATIVE_AD_YAHAN_LAGAYEIN</div>
+    </div>
+
+    <!-- ================= LIVE SCORE & TRENDING NEWS HUB ================= -->
+    <section class="card">
+      <div class="section-title">
+        <span>Live Cricket Score &amp; Crypto Updates</span>
+        <span class="live-badge">&#9679; LIVE NOW</span>
+      </div>
+
+      <div class="list-item">
+        <div class="item-info">
+          <h4>&#127951; Live Cricket Match Scoreboard</h4>
+          <p>Check ball-by-ball updates, toss results &amp; player stats</p>
+        </div>
+        <span class="badge">Live Score</span>
+      </div>
+
+      <div class="list-item" style="margin-bottom:0;">
+        <div class="item-info">
+          <h4>&#128200; Bitcoin &amp; Crypto Faucet Market</h4>
+          <p>Daily high-paying PTC tasks, crypto market news &amp; trends</p>
+        </div>
+        <span class="badge">Trending</span>
+      </div>
+    </section>
+
+    <!-- ================= PROMOTED WEBSITES SECTION ================= -->
+    <section class="card">
+      <div class="section-title">
+        <span>Featured &amp; Sponsored Websites</span>
+        <span class="badge">Promoted</span>
+      </div>
+
+      <div class="list-item">
+        <div class="item-info">
+          <h4>Bitcotasks - Earn Free Crypto &amp; PTC</h4>
+          <p>Complete simple daily tasks, faucet claims &amp; surf ads</p>
+        </div>
+        <a class="small-btn" href="https://bitcotasks.com/" target="_blank" rel="noopener">Visit &rarr;</a>
+      </div>
+
+      <div class="list-item" style="margin-bottom:0;">
+        <div class="item-info">
+          <h4>Advertise on SnapLink Network</h4>
+          <p>Promote your website or Telegram channel to thousands daily</p>
+        </div>
+        <a class="small-btn" href="#" id="promo-self-link">Promote &rarr;</a>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- AD SLOT 5A & 5B: BOTTOM BANNERS (Adsterra + A-Ads/Monetag)        -->
+    <!-- ================================================================= -->
+    <div class="ad-slot">
+      <div class="ad-label">Advertisement</div>
+      <div id="slot-ad-bottom-1">MITAYEIN_5A_BOTTOM_300x250_AD1_YAHAN_LAGAYEIN</div>
+      <div id="slot-ad-bottom-2">MITAYEIN_5B_BOTTOM_300x250_AD2_YAHAN_LAGAYEIN</div>
+    </div>
+
+    <!-- ================= BOTTOM NEXT STEP / FINAL BUTTON ================= -->
+    <section class="card hidden" id="bottom-action-card" style="text-align:center;">
+      <p id="bottom-card-text" style="font-size:14px; margin-bottom:12px; font-weight:700; color:#0f172a;">Step 1 Complete! Agle step par jane ke liye niche click karein:</p>
+      <a class="btn btn-success" href="#" id="bottom-action-btn" onclick="handleBottomActionClick(event)">Continue to Step 2 (1/3) &rarr;</a>
+    </section>
+
+    <footer class="footer">
+      &copy; 2026 <strong>SnapLink</strong> Network. Powered by Cloudflare &amp; GitHub.
+    </footer>
+
+  </main>
+
+  <!-- ================================================================= -->
+  <!-- AD SLOT 6: STICKY FOOTER AD (Sirf 1 320x50 Banner rakhein)        -->
+  <!-- ================================================================= -->
+  <div class="sticky-footer-ad">
+    <div id="slot-ad-sticky">MITAYEIN_6_STICKY_320x50_AD_YAHAN_LAGAYEIN</div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- AD SLOT 7: SOCIAL BAR AD SCRIPT (Adsterra Social Bar)             -->
+  <!-- ================================================================= -->
+  <!-- MITAYEIN_7_SOCIAL_BAR_AD_YAHAN_LAGAYEIN -->
+
+  <script>
+    // =================================================================
+    // AD SLOT 8: TEENO NETWORKS KE DIRECT LINKS ALAG-ALAG YAHAN DAALEIN
+    // Step 1 par Link 1, Step 2 par Link 2, aur Step 3 par Link 3 khulega!
+    // =================================================================
+    const DIRECT_LINK_1_ADSTERRA = "YAHAN_ADSTERRA_DIRECT_LINK_DAALEIN";
+    const DIRECT_LINK_2_MONETAG  = "YAHAN_MONETAG_DIRECT_LINK_DAALEIN";
+    const DIRECT_LINK_3_BITCO    = "https://bitcotasks.com/";
+
+    const STEP_1_TIME = 10;
+    const STEP_2_TIME = 8;
+    const STEP_3_TIME = 8;
+
+    const SITE_BASE_URL = window.location.origin + window.location.pathname;
+    document.getElementById('promo-self-link').href = SITE_BASE_URL;
+
+    // Valid Direct Links ki list banana (jo set kiye gaye hain)
+    function getActiveDirectLinks() {
+      const links = [];
+      if (DIRECT_LINK_1_ADSTERRA.startsWith("http")) links.push(DIRECT_LINK_1_ADSTERRA);
+      if (DIRECT_LINK_2_MONETAG.startsWith("http")) links.push(DIRECT_LINK_2_MONETAG);
+      if (DIRECT_LINK_3_BITCO.startsWith("http")) links.push(DIRECT_LINK_3_BITCO);
+      return links;
+    }
+
+    // Current step ke hisaab se alag Direct Link chunna
+    function getDirectLinkForStep(stepNumber) {
+      const activeLinks = getActiveDirectLinks();
+      if (activeLinks.length === 0) return "";
+      const index = (stepNumber - 1) % activeLinks.length;
+      return activeLinks[index];
+    }
+
+    const popupLink = getDirectLinkForStep(1) || "https://bitcotasks.com/";
+    document.getElementById('popup-direct-btn').href = popupLink;
+
+    document.getElementById('ptc-campaign-link').value = SITE_BASE_URL + "?url=https://bitcotasks.com";
+    document.getElementById('quick-api-box').value = SITE_BASE_URL + "?url=https://your-destination-link.com";
+    document.getElementById('api-script-box').value =
+`<script>
+var snaplink_domain = "${SITE_BASE_URL}";
+var exclude_domains = ["google.com", window.location.hostname];
+document.addEventListener("DOMContentLoaded", function() {
+  var links = document.querySelectorAll("a[href^='http']");
+  links.forEach(function(link) {
+    var href = link.href;
+    var skip = exclude_domains.some(function(d) { return href.indexOf(d) !== -1; });
+    if (!skip) {
+      link.href = snaplink_domain + "?go=" + btoa(unescape(encodeURIComponent(href)));
+      link.target = "_blank";
+    }
+  });
+});
+<\/script>`;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedTarget = urlParams.get('go');
+    const plainTarget = urlParams.get('url');
+    const stepParam = parseInt(urlParams.get('step') || '1', 10);
+    const currentStep = (stepParam === 2 || stepParam === 3) ? stepParam : 1;
+
+    let finalDestination = "";
+    let encodedForNextStep = "";
+
+    if (encodedTarget) {
+      try {
+        finalDestination = decodeURIComponent(escape(atob(encodedTarget)));
+        encodedForNextStep = encodedTarget;
+      } catch (e) {
+        finalDestination = "";
+      }
+    } else if (plainTarget) {
+      finalDestination = plainTarget;
+      encodedForNextStep = btoa(unescape(encodeURIComponent(plainTarget)));
+    }
+
+    let topBtnClicked = false;
+
+    if (finalDestination) {
+      document.getElementById('shortener-view').classList.add('hidden');
+      document.getElementById('redirect-view').classList.remove('hidden');
+
+      const pill1 = document.getElementById('pill-step-1');
+      const pill2 = document.getElementById('pill-step-2');
+      const pill3 = document.getElementById('pill-step-3');
+
+      if (currentStep === 1) {
+        pill1.className = 'step-pill active';
+      } else if (currentStep === 2) {
+        pill1.className = 'step-pill done';
+        pill1.textContent = 'Step 1 ✓';
+        pill2.className = 'step-pill active';
+      } else if (currentStep === 3) {
+        pill1.className = 'step-pill done';
+        pill1.textContent = 'Step 1 ✓';
+        pill2.className = 'step-pill done';
+        pill2.textContent = 'Step 2 ✓';
+        pill3.className = 'step-pill active';
+      }
+
+      setTimeout(() => {
+        document.getElementById('popup-ad-modal').classList.remove('hidden');
+      }, 2500);
+
+      const countdownEl = document.getElementById('countdown');
+      const statusText = document.getElementById('status-text');
+      const topVerifyBtn = document.getElementById('top-verify-btn');
+
+      let timeLeft = STEP_1_TIME;
+      if (currentStep === 2) timeLeft = STEP_2_TIME;
+      if (currentStep === 3) timeLeft = STEP_3_TIME;
+
+      countdownEl.textContent = timeLeft;
+      statusText.textContent = `Step ${currentStep} of 3: Link Verify Ho Raha Hai...`;
+
+      const timer = setInterval(() => {
+        timeLeft--;
+        countdownEl.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          countdownEl.style.display = 'none';
+          statusText.textContent = `Step ${currentStep} of 3 Verify Ho Gaya Hai!`;
+          topVerifyBtn.textContent = `Step ${currentStep} Verify Karein & Niche Jayein ↓`;
+          topVerifyBtn.classList.remove('hidden');
+        }
+      }, 1000);
+    }
+
+    function closePopupAd() {
+      document.getElementById('popup-ad-modal').classList.add('hidden');
+    }
+
+    function openStepDirectAd() {
+      const targetDirectAd = getDirectLinkForStep(currentStep);
+      if (targetDirectAd) {
+        window.open(targetDirectAd, '_blank');
+      }
+    }
+
+    function handleTopVerifyClick() {
+      if (!topBtnClicked) {
+        openStepDirectAd();
+        topBtnClicked = true;
+      }
+
+      const bottomCard = document.getElementById('bottom-action-card');
+      const bottomBtn = document.getElementById('bottom-action-btn');
+      const bottomText = document.getElementById('bottom-card-text');
+
+      if (currentStep === 1) {
+        bottomText.textContent = "Step 1 Complete! Ab Step 2 par jane ke liye niche button dabayein:";
+        bottomBtn.textContent = "Continue to Step 2 (1/3) →";
+        bottomBtn.href = SITE_BASE_URL + "?step=2&go=" + encodedForNextStep;
+      } else if (currentStep === 2) {
+        bottomText.textContent = "Step 2 Complete! Ab Final Step 3 par jane ke liye niche click karein:";
+        bottomBtn.textContent = "Continue to Final Step 3 (2/3) →";
+        bottomBtn.href = SITE_BASE_URL + "?step=3&go=" + encodedForNextStep;
+      } else {
+        bottomText.textContent = "All 3 Steps Complete! Niche button se apna final link kholein:";
+        bottomBtn.textContent = "Get Final Link Now (3/3) →";
+        bottomBtn.href = finalDestination;
+        bottomBtn.target = "_blank";
+      }
+
+      bottomCard.classList.remove('hidden');
+      bottomCard.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleBottomActionClick(e) {
+      if (currentStep === 3) {
+        const finalBgAd = getDirectLinkForStep(2) || getDirectLinkForStep(1);
+        if (finalBgAd) {
+          setTimeout(() => {
+            window.location.href = finalBgAd;
+          }, 600);
+        }
+      }
+    }
+
+    function generateShortLink() {
+      const longUrlInput = document.getElementById('long-url').value.trim();
+      if (!longUrlInput) {
+        alert('Kripya ek valid URL daalein!');
+        return;
+      }
+      let formattedUrl = longUrlInput;
+      if (!/^https?:\/\//i.test(formattedUrl)) {
+        formattedUrl = 'https://' + formattedUrl;
+      }
+      const base64Url = btoa(unescape(encodeURIComponent(formattedUrl)));
+      const finalShortLink = SITE_BASE_URL + '?go=' + base64Url;
+
+      document.getElementById('short-url-output').value = finalShortLink;
+      document.getElementById('result-box').style.display = 'block';
+      document.getElementById('copy-btn').textContent = 'Copy Short Link';
+    }
+
+    function copyLink() {
+      const output = document.getElementById('short-url-output');
+      output.select();
+      navigator.clipboard.writeText(output.value);
+      document.getElementById('copy-btn').textContent = 'Copied!';
+    }
+
+    function copyApiScript() {
+      const scriptBox = document.getElementById('api-script-box');
+      scriptBox.select();
+      navigator.clipboard.writeText(scriptBox.value);
+      alert('SnapLink Website Script Copy Ho Gaya!');
+    }
+  </script>
+</body>
+</html>
